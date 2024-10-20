@@ -65,11 +65,24 @@ class LinkedList {
       newTail = null;
       this.head = newTail;
     } else {
-      newTail = this.at(newLastIndex); // Define penultimate node as new tail
+      newTail = this.at(newLastIndex); // Define second to last node as new tail
       newTail.nextNode = null;
     }
     this.tail = newTail;
     return oldTail;
+  }
+
+  shift() {
+    let oldHead = this.head;
+    if (oldHead === null) {
+      return null;
+    }
+    let newHead = oldHead.nextNode;
+    if (newHead === null || newHead.nextNode === null) {
+      this.tail = newHead;
+    }
+    this.head = newHead;
+    return oldHead;
   }
 
   find(value) {
@@ -100,6 +113,45 @@ class LinkedList {
     }
     stringRepr = stringRepr + "null";
     return stringRepr;
+  }
+
+  insertAt(value, index) {
+    // Insert value at index.
+    if (index < 0 || index > this.size()) {
+      throw RangeError(
+        `Index out of range: must be between 0 and [${this.size}].`
+      );
+    }
+    if (index === this.size()) {
+      this.append(value);
+    } else if (index === 0) {
+      this.prepend(value);
+    } else {
+      const newNode = new Node(value);
+      const previousNode = this.at(index - 1);
+      const followingNode = this.at(index);
+      previousNode.nextNode = newNode;
+      newNode.nextNode = followingNode;
+    }
+    return;
+  }
+
+  removeAt(index) {
+    if (index < 0 || index > this.size() - 1) {
+      throw RangeError(
+        `Index out of range: must be between 0 and [${this.size - 1}].`
+      );
+    }
+    if (index === this.size() - 1) {
+      this.pop();
+    } else if (index === 0) {
+      this.shift();
+    } else {
+      const previousNode = this.at(index - 1);
+      const followingNode = this.at(index + 1);
+      previousNode.nextNode = followingNode;
+    }
+    return;
   }
 }
 

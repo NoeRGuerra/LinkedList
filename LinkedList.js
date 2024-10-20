@@ -1,29 +1,36 @@
-import Node from "Node";
+import Node from "./Node.js";
 
-class LinkedList {
+export class LinkedList {
   constructor() {
     this.head = null;
     this.tail = null;
-    return;
   }
 
   append(value) {
-    let newTail = Node(value);
-    this.tail.nextNode = newTail;
+    const newTail = new Node(value);
+    if (this.tail) {
+      this.tail.nextNode = newTail;
+    } else {
+      this.head = newTail;
+    }
     this.tail = newTail;
   }
 
   prepend(value) {
-    let newHead = Node(value);
-    newHead.nextNode = this.head;
+    const newHead = new Node(value);
+    if (this.head) {
+      newHead.nextNode = this.head;
+    } else {
+      this.tail = newHead;
+    }
     this.head = newHead;
   }
 
-  head() {
+  getHead() {
     return this.head;
   }
 
-  tail() {
+  getTail() {
     return this.tail;
   }
 

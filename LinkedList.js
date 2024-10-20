@@ -34,8 +34,27 @@ export class LinkedList {
     return this.tail;
   }
 
+  size() {
+    let counter = 0;
+    let currentNode = this.head;
+    while (currentNode != null) {
+      counter += 1;
+      currentNode = currentNode.nextNode;
+    }
+    return counter;
+  }
+
   at(index) {
-    return;
+    if (index >= this.size()) {
+      throw RangeError("Index out of range");
+    }
+    let counter = 0;
+    let currentNode = this.head;
+    while (counter < index) {
+      currentNode = currentNode.nextNode;
+      counter += 1;
+    }
+    return currentNode;
   }
 
   pop() {

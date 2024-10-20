@@ -1,6 +1,6 @@
-import Node from "./Node.js";
+const Node = require("./Node.js");
 
-export class LinkedList {
+class LinkedList {
   constructor() {
     this.head = null;
     this.tail = null;
@@ -59,8 +59,15 @@ export class LinkedList {
 
   pop() {
     let oldTail = this.tail;
-    let newTail = this.at(this.size() - 2); // Define penultimate node as new tail
-    newTail.nextNode = null;
+    let newTail;
+    let newLastIndex = this.size() - 2;
+    if (newLastIndex < 0) {
+      newTail = null;
+      this.head = newTail;
+    } else {
+      newTail = this.at(newLastIndex); // Define penultimate node as new tail
+      newTail.nextNode = null;
+    }
     this.tail = newTail;
     return oldTail;
   }
@@ -95,3 +102,5 @@ export class LinkedList {
     return stringRepr;
   }
 }
+
+module.exports = LinkedList;
